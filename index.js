@@ -79,13 +79,10 @@
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    var myLocation = new MyLocation();
     // Отправляем данные о местоположении и верхнем реферере в родительское окно
-    window.parent.postMessage({
-        type: "myLocationData",
-        location: myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame",
-        topReferrer: myLocation.topReferrer,
-    }, "https://ainswrg.github.io");
+    var myLocation = new MyLocation();
+    console.log("Location: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
+    console.log("Top Referrer: ", myLocation.topReferrer);
 
 })();
 
