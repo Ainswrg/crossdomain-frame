@@ -1,5 +1,5 @@
 (function () {
-    'use strict';
+    "use strict";
 
     var LocationTypes;
     (function (LocationTypes) {
@@ -11,7 +11,7 @@
         { system: "doubleclick", parameter: "url" },
         { system: "betweendigital", parameter: "ref" },
         { system: "vidroll.ru", parameter: "wpl" },
-        { system: "video-play.ru", parameter: "wpl" }
+        { system: "video-play.ru", parameter: "wpl" },
     ];
 
     class MyLocation {
@@ -20,8 +20,7 @@
         _topWin;
         _topRef;
         constructor() {
-            if (MyLocation._instance)
-                return MyLocation._instance;
+            if (MyLocation._instance) return MyLocation._instance;
             MyLocation._instance = this;
             this.analyzeLocation();
         }
@@ -31,23 +30,20 @@
                 // такая запись для того чтобы инитить readonly свойства в методе, а не в конструкторе
                 this._location = LocationTypes.OnPage;
                 this._topWin = window;
-            }
-            else {
+            } else {
                 this._topWin = window.top;
                 try {
-                    window.top?.location.href; // если в кроссдоменном фрейме выбросится ошибка 
+                    window.top?.location.href; // если в кроссдоменном фрейме выбросится ошибка
                     assumedTopRef = this._topWin.location.href;
                     this._location = LocationTypes.SameDomainFrame;
-                }
-                catch (_) {
+                } catch (_) {
                     this._location = LocationTypes.CrossDomainFrame;
                     assumedTopRef = window.document.referrer || window.location.href;
                 }
             }
-            // поиск по параметру в других системах 
+            // поиск по параметру в других системах
             for (const { system, parameter } of PLACEMENT_SYSTEMS) {
-                if (!assumedTopRef.includes(system))
-                    continue;
+                if (!assumedTopRef.includes(system)) continue;
                 const valFromSystem = new URL(assumedTopRef).searchParams.get(parameter);
                 if (valFromSystem) {
                     assumedTopRef = valFromSystem;
@@ -81,8 +77,9 @@
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // Отправляем данные о местоположении и верхнем реферере в родительское окно
     var myLocation = new MyLocation();
-    console.log("Location: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
+    console.log("Location: ", myLocation.onPage ? "On Page" : "Not On Page");
+    console.log("Location1: ", myLocation.inSameDomainFrame ? "Same Domain Frame" : "Not Same Domain Frame");
+    console.log("Location2: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
     console.log("Top Referrer: ", myLocation.topReferrer);
-
+    console.log("Top Window: ", myLocation.topWindow);
 })();
-
