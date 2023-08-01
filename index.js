@@ -85,8 +85,8 @@
         type: "myLocationData",
         location: myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame",
         topReferrer: myLocation.topReferrer,
-    }, "https://glitch.com/edit/#!/frosted-bedecked-vein");
-    console.log("Location: ", myLocation.location);
-    console.log("Top Referrer: ", myLocation.topReferrer);
+    }, "https://ainswrg.github.io");
+    console.log("Location1: ", myLocation.location);
+    console.log("Top Referrer1: ", myLocation.topReferrer);
 })();
 //# sourceMappingURL=index.js.map
