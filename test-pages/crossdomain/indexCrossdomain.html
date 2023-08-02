@@ -11,9 +11,8 @@
 
     <script>
          function receiveMessage(event) {
-            console.log(event)
-          if (event.origin === "https://files.adriver.ru") {
-            console.log("Получено сообщение от iframe: " + JSON.stringify(event.data));
+          if (event.origin === "https://ainswrg.github.io") {
+            console.log(JSON.stringify(event.data));
           }
         }
 

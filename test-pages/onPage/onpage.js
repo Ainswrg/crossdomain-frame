@@ -7,26 +7,23 @@
         LocationTypes["SameDomainFrame"] = "samedomainiframe";
         LocationTypes["CrossDomainFrame"] = "crossdomainframe";
     })(LocationTypes || (LocationTypes = {}));
-    const PLACEMENT_SYSTEMS = [
+    var PLACEMENT_SYSTEMS = [
         { system: "doubleclick", parameter: "url" },
         { system: "betweendigital", parameter: "ref" },
         { system: "vidroll.ru", parameter: "wpl" },
         { system: "video-play.ru", parameter: "wpl" }
     ];
 
-    class MyLocation {
-        static _instance;
-        _location;
-        _topWin;
-        _topRef;
-        constructor() {
+    var MyLocation = /** @class */ (function () {
+        function MyLocation() {
             if (MyLocation._instance)
                 return MyLocation._instance;
             MyLocation._instance = this;
             this.analyzeLocation();
         }
-        analyzeLocation() {
-            let assumedTopRef = window.location.href;
+        MyLocation.prototype.analyzeLocation = function () {
+            var _a;
+            var assumedTopRef = window.location.href;
             if (window.top === window) {
                 // такая запись для того чтобы инитить readonly свойства в методе, а не в конструкторе
                 this._location = LocationTypes.OnPage;
@@ -35,7 +32,7 @@
             else {
                 this._topWin = window.top;
                 try {
-                    window.top?.location.href; // если в кроссдоменном фрейме выбросится ошибка 
+                    (_a = window.top) === null || _a === void 0 ? void 0 : _a.location.href; // если в кроссдоменном фрейме выбросится ошибка 
                     assumedTopRef = this._topWin.location.href;
                     this._location = LocationTypes.SameDomainFrame;
                 }
@@ -45,38 +42,60 @@
                 }
             }
             // поиск по параметру в других системах 
-            for (const { system, parameter } of PLACEMENT_SYSTEMS) {
+            for (var _i = 0, PLACEMENT_SYSTEMS_1 = PLACEMENT_SYSTEMS; _i < PLACEMENT_SYSTEMS_1.length; _i++) {
+                var _b = PLACEMENT_SYSTEMS_1[_i], system = _b.system, parameter = _b.parameter;
                 if (!assumedTopRef.includes(system))
                     continue;
-                const valFromSystem = new URL(assumedTopRef).searchParams.get(parameter);
+                var valFromSystem = new URL(assumedTopRef).searchParams.get(parameter);
                 if (valFromSystem) {
                     assumedTopRef = valFromSystem;
                     break;
                 }
             }
             if (window.location.ancestorOrigins && window.location.ancestorOrigins.length > 0) {
-                const topAncestorOrigin = window.location.ancestorOrigins[window.location.ancestorOrigins.length - 1];
+                var topAncestorOrigin = window.location.ancestorOrigins[window.location.ancestorOrigins.length - 1];
                 if (topAncestorOrigin.replace(/^(https|http):\/\//, "") !== assumedTopRef.replace(/^(https|http):\/\//, ""))
                     assumedTopRef = topAncestorOrigin;
             }
             this._topRef = assumedTopRef;
-        }
-        get topReferrer() {
-            return this._topRef;
-        }
-        get topWindow() {
-            return this._topWin;
-        }
-        get onPage() {
-            return this._location === LocationTypes.OnPage;
-        }
-        get inCrossDomainFrame() {
-            return this._location === LocationTypes.CrossDomainFrame;
-        }
-        get inSameDomainFrame() {
-            return this._location === LocationTypes.SameDomainFrame;
-        }
-    }
+        };
+        Object.defineProperty(MyLocation.prototype, "topReferrer", {
+            get: function () {
+                return this._topRef;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MyLocation.prototype, "topWindow", {
+            get: function () {
+                return this._topWin;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MyLocation.prototype, "onPage", {
+            get: function () {
+                return this._location === LocationTypes.OnPage;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MyLocation.prototype, "inCrossDomainFrame", {
+            get: function () {
+                return this._location === LocationTypes.CrossDomainFrame;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MyLocation.prototype, "inSameDomainFrame", {
+            get: function () {
+                return this._location === LocationTypes.SameDomainFrame;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return MyLocation;
+    }());
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     var myLocation = new MyLocation();
@@ -85,6 +104,14 @@
     console.log("Location2: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
     console.log("Top Referrer: ", myLocation.topReferrer);
     console.log("Top Window: ", myLocation.topWindow);
+    var messageData = `
+        Location: ${myLocation.onPage ? "On Page" : "Not On Page"}<br>
+        Location1: ${myLocation.inSameDomainFrame ? "Same Domain Frame" : "Not Same Domain Frame"}<br>
+        Location2: ${myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame"}<br>
+        TopReferrer: ${myLocation.topReferrer}<br>
+        TopWindow: ${myLocation.topWindow.location.href}
+    `;
+    document.body.innerHTML = messageData;
 
 })();
 

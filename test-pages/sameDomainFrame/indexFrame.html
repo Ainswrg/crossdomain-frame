@@ -9,5 +9,16 @@
     <h1>Main Page</h1>
     <p>This is the main page content.</p>
     <iframe id="myFrame" src="frame.html" width="400" height="300"></iframe>
+
+    <script>
+        function receiveMessage(event) {
+            console.log('asdas')
+         if (event.origin === "https://files.adriver.ru") {
+           console.log(JSON.stringify(event.data));
+         }
+       }
+
+       window.addEventListener("message", receiveMessage, false);
+     </script>
 </body>
 </html>
