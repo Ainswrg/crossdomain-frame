@@ -81,9 +81,11 @@
     // console.log("Location2: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
     // console.log("Top Referrer: ", myLocation.topReferrer);
     // console.log("Top Window: ", myLocation.topWindow);
-    window.parent.postMessage({
-        type: "myLocationData",
-        location: myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame",
-        topReferrer: myLocation.topReferrer,
-    }, "https://ainswrg.github.io");
+    window.onload = function () {
+        window.parent.postMessage({
+            type: "myLocationData",
+            location: myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame",
+            topReferrer: myLocation.topReferrer,
+        }, "https://ainswrg.github.io");
+    };
 })();

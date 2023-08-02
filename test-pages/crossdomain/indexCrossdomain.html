@@ -7,20 +7,21 @@
     
     <h1>Main Page</h1>
     <p>This is the main page content.</p>
-    <iframe id="testFrame" src="https://ainswrg.github.io/crossdomain-frame/index.html" frameborder="0"></iframe>
+    <iframe id="testFrame" src="https://ainswrg.github.io/crossdomain-frame/test-pages/crossdomain/crossdomain.html" frameborder="0"></iframe>
 
     <script>
-        // Функция для обработки получаемых сообщений
-        function receiveMessage(event) {
-          // Проверяем, что сообщение пришло от ожидаемого источника (server2.com)
+         // Функция для обработки получаемых сообщений
+         function receiveMessage(event) {
+            console.log(event)
+          // Проверяем, что сообщение пришло от ожидаемого источника (https://ваш_сервер_с_фреймом)
           if (event.origin === "https://ainswrg.github.io") {
             // Делаем что-то с полученными данными (event.data)
-            console.log("Получено сообщение от iframe: " + event.data);
+            console.log("Получено сообщение от iframe: " + JSON.stringify(event.data));
           }
         }
     
         // Добавляем обработчик события для получения сообщений
         window.addEventListener("message", receiveMessage, false);
       </script>
-
+</body>
 </html>
