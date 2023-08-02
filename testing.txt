@@ -1,0 +1,12 @@
+
+Safari версии ниже 9: не поддерживает метод includes.
+FireFox версии ниже 40: не поддерживают метод includes.
+Opera версии ниже 28: не поддерживают метод includes. с 16 версии. С 64-79 версии ругается на Uncaught DOMException: blocked a frame with origin "site" from accessing a cross-origin frame.
+Edge с 15 версии: работает исправно, 80-116, c 80-93 - Ругается на cross-origin frame, при попытке получить topWindow;
+Chrome версии ниже 41: не поддерживают метод includes. 77-93  версии ругается на Uncaught DOMException: blocked a frame with origin "site" from accessing a cross-origin frame.
+
+Galaxy S8 V7.0
+Pixel 2 V9.0
+Vivo Y50 V10.0
+Oppo Reno 3 Pro V3.0
+Iphone 6S и выше.

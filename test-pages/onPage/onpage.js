@@ -99,11 +99,6 @@
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     var myLocation = new MyLocation();
-    console.log("Location: ", myLocation.onPage ? "On Page" : "Not On Page");
-    console.log("Location1: ", myLocation.inSameDomainFrame ? "Same Domain Frame" : "Not Same Domain Frame");
-    console.log("Location2: ", myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame");
-    console.log("Top Referrer: ", myLocation.topReferrer);
-    console.log("Top Window: ", myLocation.topWindow);
     var messageData = `
         Location: ${myLocation.onPage ? "On Page" : "Not On Page"}<br>
         Location1: ${myLocation.inSameDomainFrame ? "Same Domain Frame" : "Not Same Domain Frame"}<br>
