@@ -11,8 +11,9 @@
 
     <script>
          function receiveMessage(event) {
+            console.log(event)
           if (event.origin === "https://ainswrg.github.io") {
-            console.log(JSON.stringify(event.data));
+            console.log(JSON.stringify(event));
           }
         }
 

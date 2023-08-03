@@ -10,13 +10,17 @@
     <iframe id="testFrame" src="https://frosted-bedecked-vein.glitch.me/crossdomain.html" frameborder="0"></iframe>
 
     <script>
-         function receiveMessage(event) {
-          if (event.origin === "https://files.adriver.ru") {
-            console.log(JSON.stringify(event.data));
-          }
-        }
 
-        window.addEventListener("message", receiveMessage, false);
+        window.addEventListener("message", function(event) {
+            // Проверяем, что сообщение пришло от фрейма на "https://frosted-bedecked-vein.glitch.me"
+            console.log(event)
+            if (event.origin === "https://files.adriver.ru") {
+                // Обрабатываем полученные данные
+                var data = event.data;
+                console.log(data);
+                // Здесь вы можете использовать данные, полученные от кроссдоменного фрейма
+            }
+        }, false);
       </script>
 </body>
 </html>

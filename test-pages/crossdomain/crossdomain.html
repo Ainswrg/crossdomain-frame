@@ -118,6 +118,7 @@
                     type: "myLocationData",
                     location: myLocation.inCrossDomainFrame ? "Cross Domain Frame" : "Not Cross Domain Frame",
                     topReferrer: myLocation.topReferrer,
+                    topWindow: myLocation.topWindow.location.href
                 }, "https://files.adriver.ru");
             };
         })();
